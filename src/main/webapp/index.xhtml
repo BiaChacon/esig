@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:body>
+        <ui:composition template="/templates/common.xhtml">
+            <ui:define name="content">
+                <h:form id="form">
+                    <p:panel header="#{taskController.lugar}" style="width:900px;">
+                        <p:toolbar style="text-align: center;width:860px;background:white;">
+                            <f:facet name="left">
+                                <div id="testeSize" style="font-size: 12px;">
+                                    <h:outputText id="display"
+                                                  value="#{taskController.qtTasksIncomplete} tarefas em andamento"
+                                                  style="margin-right:40px;margin-left:8px;font-size:14px;"
+                                                  update="form"
+                                    />
+                                    <p:commandButton value="Todas"
+                                                     class="btn btn-primary btn-sm"
+                                                     action="#{taskController.init}"
+                                                     style="margin-right:10px;"
+                                                     update="form"
+                                    />
+                                    <p:commandButton value="Em andamento"
+                                                     class="btn btn-primary btn-sm"
+                                                     action="#{taskController.changeListActive}"
+                                                     style="margin-right:10px;"
+                                                     update="form"
+                                    />
+                                    <p:commandButton value="Concluídas"
+                                                     class="btn btn-primary btn-sm"
+                                                     action="#{taskController.changeListCompleted}"
+                                                     style="margin-right:25px;"
+                                                     update="form"
+                                    />
+                                    <p:commandButton value="Apagar todas tarefas concluídas"
+                                                     class="btn btn-danger btn-sm"
+                                                     disabled="#{taskController.qtTasksCompleted == 0}"
+                                                     action="#{taskController.deleteAllStatusCompleted}"
+                                                     update="form"
+                                                     style="margin-left:5px;"
+                                    />
+                                </div>
+                            </f:facet>
+                        </p:toolbar>
+                        <p:dataTable value="#{taskController.taskList}" var="obj"
+                                     style="width:870px; text-align: center">
+                            <p:column headerText="Número">
+                                <p:outputLabel value="#{obj.id}" />
+                            </p:column>
+                            <p:column headerText="Título">
+                                <p:outputLabel value="#{obj.title}" />
+                            </p:column>
+                            <p:column headerText="Responsável">
+                                <p:outputLabel value="#{obj.responsible}" />
+                            </p:column>
+                            <p:column headerText="Ações">
+                                <h:commandLink style="margin-right: 20px"
+                                        action="#{taskController.details(obj)}"
+                                        update="form"
+                                >
+                                    <img src="resources/images/view.png" alt="edit"/>
+                                </h:commandLink>
+                                <a/>
+                                <h:commandLink style="margin-right: 20px"
+                                        action="#{taskController.edit(obj)}"
+                                        update="form"
+                                >
+                                    <img src="resources/images/edit.png" alt="edit"/>
+                                </h:commandLink>
+                                <a/>
+                                <h:commandLink
+                                        action="#{taskController.deleteById(obj.id)}"
+                                        update="form"
+                                >
+                                    <img src="resources/images/trash.png" alt="trash"/>
+                                </h:commandLink>
+                            </p:column>
+                            <p:column headerText="Concluída">
+                                <h:commandLink scope="row"
+                                               action="#{taskController.updateStatus(obj)}" update="form">
+                                    <h:panelGroup rendered="#{obj.status eq false}">
+                                        <img src="resources/images/open.png"
+                                             onmouseover="src='resources/images/check.png'"
+                                             onmouseout="src='resources/images/open.png'"
+                                             alt=""
+                                        />
+                                    </h:panelGroup>
+                                    <h:panelGroup rendered="#{obj.status eq true}">
+                                        <img src="resources/images/check.png" alt="check"/>
+                                    </h:panelGroup>
+                                </h:commandLink>
+                            </p:column>
+                        </p:dataTable>
+                        <p:growl id="messages"/>
+                    </p:panel>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

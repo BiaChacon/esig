@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <body>
+        <ui:composition>
+            <style type="">
+                ul.topnav {
+                    list-style-type: none;
+                    margin: 0;
+                    background-color: #ffff;
+                }
+                ul.topnav li {
+                    float: left;
+                }
+                ul.topnav li a {
+                    display: block;
+                    color: #3F3E3F;
+                    text-align: center;
+                    padding: 35px 20px;
+                    text-decoration: none;
+                    font-family: "Cantarell Extra Bold";
+                    font-size: 25px;
+                }
+                ul.topnav li a:hover{
+                    color: #CC0B15;
+                }
+
+                ul.topnav li.left {
+                    margin-left: 150px;
+                    margin-right: 150px;
+                }
+            </style>
+            <ul class="topnav">
+                <li class="left">
+                    <p:graphicImage library="images" name="logo.png" width="250x"/>
+                </li>
+                <li><a href="/index.xhtml">Home</a></li>
+                <li><a href="/register-task.xhtml">Cadastrar tarefa</a></li>
+                <li><a href="/search-task.xhtml">Buscar</a></li>
+            </ul>
+        </ui:composition>
+    </body>
+</html>

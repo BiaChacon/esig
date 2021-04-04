@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+    <ui:composition template="/templates/common.xhtml">
+        <ui:define name="content">
+            <h:form id="form1">
+                <p:panel style="width:900px;">
+                    <h:panelGrid columns="2" cellpadding="5">
+                        <h:outputLabel for="id" value="Número:"/>
+                        <p:inputText id="id"
+                                     value="#{taskController.task.id}"
+                                     required="true"
+                                     requiredMessage="Número é necessario"
+                        />
+
+                        <h:outputLabel for="title" value="Título/Descrição:"/>
+                        <p:inputText id="title"
+                                     value="#{taskController.task.title}"
+                                     required="true"
+                                     requiredMessage="Título ou descrição é necessario"
+                        />
+
+                        <h:outputLabel for="responsible" value="Responsável:"/>
+                        <p:inputText id="responsible"
+                                     value="#{taskController.task.responsible}"
+                                     required="true"
+                                     requiredMessage="Responsável é necessario"
+                        />
+
+                        <h:outputLabel for="status" value="Situação:"/>
+                        <h:selectOneMenu id="status"
+                                         value="#{taskController.task.status}">
+                            <f:selectItem itemLabel="Em andamento" itemValue="false" noSelectionOption="true"/>
+                            <f:selectItem itemLabel="Concluída" itemValue="true"/>
+                        </h:selectOneMenu>
+
+                    </h:panelGrid>
+                    <h:commandButton value="Buscar" action="#{taskController.search}"/>
+                </p:panel>
+            </h:form>
+            <h:form id="form">
+                    <p:dataTable value="#{taskController.taskList}" var="obj"
+                                 style="width:910px; margin-top: 50px; text-align: center">
+                        <p:column headerText="Número">
+                            <p:outputLabel value="#{obj.id}" />
+                        </p:column>
+                        <p:column headerText="Título">
+                            <p:outputLabel value="#{obj.title}" />
+                        </p:column>
+                        <p:column headerText="Descrição">
+                            <p:outputLabel value="#{obj.description}" />
+                        </p:column>
+                        <p:column headerText="Responsável">
+                            <p:outputLabel value="#{obj.responsible}" />
+                        </p:column>
+                        <p:column headerText="Ações">
+                            <h:commandLink
+                                    action="#{taskController.edit(obj)}"
+                                    update="form"
+                            >
+                                <img src="resources/images/edit.png" alt="edit"/>
+                            </h:commandLink>
+                            <a/>
+                            <h:commandLink
+                                    action="#{taskController.deleteById(obj.id)}"
+                                    update="form"
+                            >
+                                <img src="resources/images/trash.png" alt="trash"/>
+                            </h:commandLink>
+                            <a/>
+                            <h:commandLink scope="row"
+                                           action="#{taskController.updateStatus(obj)}" update="form">
+                                <h:panelGroup rendered="#{obj.status eq false}">
+                                    <img src="resources/images/open.png"
+                                         onmouseover="src='resources/images/check.png'"
+                                         onmouseout="src='resources/images/open.png'"
+                                         alt=""
+                                    />
+                                </h:panelGroup>
+                                <h:panelGroup rendered="#{obj.status eq true}">
+                                    <img src="resources/images/check.png" alt="check"/>
+                                </h:panelGroup>
+                            </h:commandLink>
+                        </p:column>
+                    </p:dataTable>
+
+                    <p:growl id="messages"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</h:body>
+</html>

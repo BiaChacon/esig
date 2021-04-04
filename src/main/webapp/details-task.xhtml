@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:body>
+        <ui:composition template="/templates/common.xhtml">
+            <ui:define name="content">
+                <h:form id="form">
+                    <p:panel header="Detalhes da Tarefa" style="width:900px;" >
+                        <h:panelGrid columns="2" cellpadding="10">
+                            <h:outputLabel for="id" value="Número:"/>
+                            <p:outputLabel id="id"
+                                           value="#{taskController.task.id}"
+                            />
+
+                            <h:outputLabel for="title" value="Título:"/>
+                            <p:outputLabel id="title"
+                                         value="#{taskController.task.title}"
+                            />
+
+                            <h:outputLabel for="description" value="Descrição:"/>
+                            <p:outputLabel id="description"
+                                             value="#{taskController.task.description}"
+                            />
+
+                            <h:outputLabel for="responsible" value="Responsável:"/>
+                            <p:outputLabel id="responsible"
+                                         value="#{taskController.task.responsible}"
+                            />
+
+                            <h:outputLabel for="priority" value="Prioridade:"/>
+                            <h:outputLabel id="priority"
+                                             value="#{taskController.textPriority()}"
+                            />
+
+                            <h:outputLabel for="status" value="Situação:"/>
+                            <h:outputLabel id="status"
+                                           value="#{taskController.textStatus()}"
+                            />
+
+                            <h:outputLabel for="deadline" value="Deadline:"/>
+                            <p:outputLabel id="deadline"
+                                         value="#{taskController.task.deadline}"
+                            >
+                                <f:convertDateTime pattern="dd/MM/yyyy" for="deadline"/>
+                            </p:outputLabel>
+                        </h:panelGrid>
+                    </p:panel>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
